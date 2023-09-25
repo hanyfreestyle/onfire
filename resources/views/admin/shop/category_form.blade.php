@@ -11,9 +11,7 @@
                 <div class="col-9">
                     <h1 class="def_h1">{{ $Category->name }}</h1>
                 </div>
-                <div class="col-3 text-left">
-                    <x-action-button url="{{route($PrefixRoute.'.Table_list',$Category->id)}}"  bg="p"  print-lable="{{__('admin/def.table_info')}}"  icon="fas fa-info-circle"  />
-                </div>
+
             </div>
         @endif
     </x-html-section>
