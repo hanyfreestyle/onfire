@@ -21,7 +21,7 @@
             @if(count($Categories)>0)
                 <div class="row col-lg-12 hanySort">
                     @foreach($Categories as $row)
-                        <div class="col-lg-12"  data-index="{{$row->id}}" data-position="{{$row->postion_shop}}" >
+                        <div class="col-lg-12"  data-index="{{$row->id}}" data-position="{{$row->postion}}" >
                             <p class="ListItem-12">{{$row->name}}</p>
                         </div>
                     @endforeach

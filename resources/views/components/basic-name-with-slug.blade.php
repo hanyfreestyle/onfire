@@ -2,44 +2,44 @@
     <div class="{{$col}} {{getColDir($key)}}">
         <x-trans-input
             label="{{__('admin/def.form_name_'.$key)}} "
-            name="{{ $key }}[name]"
-            inputid="name_{{ $key }}"
+            name="name"
+            inputid="name"
             dir="{{ $key }}"
-            reqname="{{ $key }}.name"
-            value="{{old($key.'.name',$rowData->translateOrNew($key)->name)}}"
+            reqname="name"
+            value="{{old('name',$rowData->name)}}"
         />
 
         <x-trans-text-area
             label="{{ __('admin/form.des_'.$key)}} "
-            name="{{ $key }}[des]"
+            name="des"
             dir="{{ $key }}"
             :reqspan="false"
-            reqname="{{ $key }}.des"
-            value="{!! old($key.'.des',$rowData->translateOrNew($key)->des) !!}"
+            reqname="des"
+            value="{!! old('des',$rowData->des) !!}"
         />
 
         @if($pageData['ViewType'] == 'Add' )
             <x-trans-input
                 label="Slug "
-                inputid="slug_{{ $key }}"
-                name="{{ $key }}[slug]"
+                inputid="slug"
+                name="slug"
                 dir="{{ $key }}"
-                reqname="{{ $key }}.slug"
-                value="{{old($key.'.slug',$rowData->translateOrNew($key)->slug)}}"
+                reqname="slug"
+                value="{{old('slug',$rowData->slug)}}"
                 :reqspan="true"
             />
         @elseif($pageData['ViewType'] == 'Edit' and  auth()->user()->can($PrefixRole."_edit_slug"))
             <x-trans-input
                 label="Slug "
-                inputid="slug_{{ $key }}"
-                name="{{ $key }}[slug]"
+                inputid="slug"
+                name="slug"
                 dir="{{ $key }}"
-                reqname="{{ $key }}.slug"
-                value="{{old($key.'.slug',$rowData->translateOrNew($key)->slug)}}"
+                reqname="slug"
+                value="{{old('slug',$rowData->slug)}}"
                 :reqspan="true"
             />
         @else
-            <input type="hidden" name="{{ $key }}[slug]" value="{{$rowData->translateOrNew($key)->slug}}">
+            <input type="hidden" name="slug" value="{{$rowData->slug}}">
         @endif
 
 

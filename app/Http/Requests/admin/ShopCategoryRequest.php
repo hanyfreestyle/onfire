@@ -17,9 +17,7 @@ class ShopCategoryRequest extends FormRequest
     protected function prepareForValidation()
     {
         $data = $this->toArray();
-        foreach(config('app.shop_lang') as $key=>$lang){
-            data_set($data, $key.'.slug',  AdminHelper::Url_Slug($data[$key]['slug']) );
-        }
+        data_set($data, 'slug',  AdminHelper::Url_Slug($data['slug']) );
         $this->merge($data);
     }
 
@@ -27,24 +25,21 @@ class ShopCategoryRequest extends FormRequest
     {
 
         foreach(config('app.shop_lang') as $key=>$lang){
-            $request->merge([$key.'.slug' => AdminHelper::Url_Slug($request[$key]['slug'])]);
+            $request->merge(['slug' => AdminHelper::Url_Slug($request['slug'])]);
         }
 
         $id = $this->route('id');
 
         $rules =[
             'parent_id'=> "required",
-            'cat_shop'=> "required",
-            'cat_web'=> "required",
+            'name'=> "required",
+
         ];
 
-        foreach(config('app.shop_lang') as $key=>$lang){
-            $rules[$key.".name"] =   'required';
-            if($id == '0'){
-                $rules[$key.".slug"] = 'required|unique:category_translations,slug';
-            }else{
-                $rules[$key.".slug"] = "required|unique:category_translations,slug,$id,category_id,locale,$key";
-            }
+        if($id == '0'){
+            $rules["slug"] = 'required|unique:categories,slug';
+        }else{
+            $rules["slug"] = "required|unique:categories,slug,$id";
         }
 
         return $rules;

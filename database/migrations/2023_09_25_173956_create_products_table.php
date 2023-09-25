@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('slug')->unique();
             $table->text('des')->nullable();
             $table->float('price')->nullable()->default(null);
             $table->float('discount_price')->nullable()->default(null);

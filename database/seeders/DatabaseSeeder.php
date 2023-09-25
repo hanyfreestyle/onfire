@@ -5,7 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 
-
+use Database\Seeders\admin\CategorySeeder;
 use Database\Seeders\roles\AdminUserSeeder;
 use Database\Seeders\roles\PermissionSeeder;
 use Database\Seeders\roles\RoleSeeder;
@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UploadFilterSeeder::class);
         $this->call(UploadFilterSizeSeeder::class);
         $this->call(DefPhotoSeeder::class);
+        $this->call(CategorySeeder::class);
 
 
     }

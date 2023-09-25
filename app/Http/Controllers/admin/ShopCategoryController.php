@@ -8,9 +8,8 @@ use App\Http\Controllers\AdminMainController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\CategoryRequest;
 use App\Http\Requests\admin\ShopCategoryRequest;
-use App\Models\admin\Category;
-use App\Models\admin\CategoryTable;
-use App\Models\admin\CategoryTranslation;
+
+use App\Models\Category;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -88,30 +87,36 @@ class ShopCategoryController extends AdminMainController
         $pageData['ViewType'] = "List";
         $pageData['SubView'] = false;
         $trees = [];
-        if( Route::currentRouteName()== 'Shop.shopCategory.index_Main')
-        {
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', null)->where('cat_shop', true));
+        if( Route::currentRouteName()== 'Shop.shopCategory.index_Main'){
+            $Categories = Category::query()
+                ->where('parent_id', null)
+                ->orderBy('postion','asc')
+                ->withCount('children')
+                ->with('children')
+                ->paginate(10);
+
+
         }elseif (Route::currentRouteName()== 'Shop.shopCategory.SubCategory'){
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id',$id)->where('cat_shop',true));
+
+            $Categories = Category::query()
+                ->where('parent_id',$id)
+                ->orderBy('postion','asc')
+                ->withCount('children')
+                ->with('children')
+                ->paginate(10);
             $trees = Category::find($id)->ancestorsAndSelf()->orderBy('depth','asc')->get() ;
             $pageData['SubView'] = true;
         }else{
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('cat_shop',true));
+            $Categories = Category::query()
+                ->orderBy('postion','asc')
+                ->withCount('children')
+                ->with('children')
+                ->paginate(10);
         }
+
+
         return view('admin.shop.category_index',compact('pageData','Categories','trees'));
     }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     AddCatToShop
-    public function AddCatToShop()
-    {
-        $pageData = $this->pageData;
-        $pageData['ViewType'] = "List";
-        $pageData['SubView'] = false;
-        $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('cat_shop',false));
-        return view('admin.shop.category_index',compact('pageData','Categories'));
-    }
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     create
@@ -119,7 +124,8 @@ class ShopCategoryController extends AdminMainController
     {
         $pageData = $this->pageData;
         $pageData['ViewType'] = "Add";
-        $Categories = Category::tree()->with('translation')->get()->toTree();
+        $Categories = Category::tree()->get()->toTree();
+
         $Category = Category::findOrNew(0);
         return view('admin.shop.category_form',compact('pageData','Category','Categories'));
     }
@@ -147,8 +153,9 @@ class ShopCategoryController extends AdminMainController
         }
 
         $saveData->is_active = intval((bool) $request->input( 'is_active'));
-        $saveData->cat_shop = $request->input('cat_shop');
-        $saveData->cat_web = $request->input('cat_web');
+        $saveData->slug = AdminHelper::Url_Slug($request->input('slug'));
+        $saveData->name = $request->input('name');
+        $saveData->des = $request->input('des');
         $saveData->save();
 
         $saveImgData = new PuzzleUploadProcess();
@@ -167,38 +174,6 @@ class ShopCategoryController extends AdminMainController
         $saveImgData_icon->UploadOneNofilter($request,'4',60,60);
         $saveData = AdminHelper::saveAndDeletePhotoByOne($saveData,$saveImgData_icon,'icon');
         $saveData->save();
-
-        foreach ( config('app.shop_lang') as $key=>$lang) {
-            $saveTranslation = CategoryTranslation::where('category_id',$saveData->id)->where('locale',$key)->firstOrNew();
-            $saveTranslation->category_id = $saveData->id;
-            $saveTranslation->locale = $key;
-            $saveTranslation->name = $request->input($key.'.name');
-            $saveTranslation->slug = AdminHelper::Url_Slug($request->input($key.'.slug'));
-            $saveTranslation->des = $request->input($key.'.des');
-            $saveTranslation->save();
-        }
-
-        if($saveData->is_active == false){
-            $trees = Category::find($id)->descendants()->pluck('id')->toArray()  ;
-            if(count($trees) > 0 ){
-                Category::whereIn("id", $trees)
-                    ->update([
-                        'is_active' => 0,
-                    ]);
-            }
-        }
-
-        if($saveData->cat_shop == false){
-            $trees = Category::find($id)->descendants()->pluck('id')->toArray()  ;
-            if(count($trees) > 0 ){
-                Category::whereIn("id", $trees)
-                    ->update([
-                        'cat_shop' => 0,
-                    ]);
-            }
-        }
-
-
 
         self::ClearCash();
         if($id == '0'){
@@ -267,10 +242,10 @@ class ShopCategoryController extends AdminMainController
         $pageData['ViewType'] = "List";
         $Category = [];
         if($id == 0){
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', null)->where('cat_shop', true)->orderBy('postion_shop'));
+            $Categories = Category::where('parent_id', null)->orderBy('postion')->get();
         }else{
             $Category =  Category::findOrNew($id);
-            $Categories = self::getSelectQuery(Category::Admin_Def_Shop_query()->where('parent_id', $Category->id)->where('cat_shop', true)->orderBy('postion_shop'));
+            $Categories = Category::where('parent_id', $Category->id)->orderBy('postion')->get();
         }
         return view('admin.shop.category_sort',compact('pageData','Categories','Category'));
     }
@@ -283,7 +258,7 @@ class ShopCategoryController extends AdminMainController
             $id = $position[0];
             $newPosition = $position[1];
             $saveData =  Category::findOrFail($id) ;
-            $saveData->postion_shop = $newPosition;
+            $saveData->postion = $newPosition;
             $saveData->save();
         }
         self::ClearCash();

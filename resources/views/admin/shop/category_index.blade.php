@@ -9,7 +9,6 @@
     <x-html-section>
         <div class="row mb-3">
             <div class="col-12 text-left">
-                <x-action-button url="{{route('Shop.shopCategory.AddCatToShop')}}"  bg="p"  print-lable="{{ __('admin/shop.cat_addshop') }}"  icon="fas fa-plus-square"  />
                 <x-action-button url="{{route('Shop.shopCategory.CatSort',0)}}"  type="sort"  />
             </div>
         </div>
@@ -59,7 +58,7 @@
                                 <td class="tc" >{!! is_active($Category->is_active) !!}</td>
                                 @can($PrefixRole.'_edit')
                                     <td class="tc">
-                                        @if($Category->admin_children_shop_count > 0)
+                                        @if($Category->children_count > 0)
                                             <x-action-button url="{{route('Shop.shopCategory.CatSort',$Category->id)}}" :tip="true"  type="sort"    />
                                         @endif
                                     </td>
