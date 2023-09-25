@@ -4,19 +4,6 @@
 
     <x-breadcrumb-def :pageData="$pageData"/>
 
-    @if($pageData['ViewType'] == 'Edit')
-        <x-html-section>
-            <div class="row mb-3">
-                <div class="col-9">
-                    <h1 class="def_h1">{{ $Product->name }}</h1>
-                </div>
-                <div class="col-3 text-left">
-                    <x-action-button url="{{route($PrefixRoute.'.More_Photos',$Product->id)}}" type="morePhoto"/>
-                </div>
-            </div>
-        </x-html-section>
-    @endif
-
     <x-html-section>
         <x-ui-card :page-data="$pageData">
             <x-mass.confirm-massage />
@@ -35,25 +22,42 @@
                     </x-form-select-multiple>
                 </div>
 
-                <div class="row">
-
-                    @if($pageData['ViewType'] == 'Edit')
-                        <x-form-select-arr  label="{{__('admin/shop.pro_addshop')}}" name="pro_shop" colrow="col-lg-3"
-                                            sendvalue="{{old('pro_shop',$Product->pro_shop)}}" select-type="selActive"/>
-
-                        <x-form-select-arr  label="{{__('admin/shop.pro_addweb')}}" name="pro_web" colrow="col-lg-3"
-                                            sendvalue="{{old('pro_web',$Product->pro_web)}}" select-type="selActive"/>
-                    @else
-                        <input type="hidden" name="pro_shop" value="1">
-                        <input type="hidden" name="pro_web" value="0">
-                    @endif
-
-                </div>
-
-
                 <hr>
                 <div class="row">
-                    <x-basic-name-with-slug :row-data="$Product" :page-data="$pageData" col="col-lg-6" />
+
+
+
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <x-trans-input
+                                    label="{{ __('admin/shop.pro_price') }} "
+                                    inputid="price"
+                                    name="price"
+                                    reqname="price"
+                                    value="{{old('price',$Product->price)}}"
+                                    :reqspan="true"
+                                />
+                            </div>
+                            <div class="col-lg-6">
+                                <x-trans-input
+                                    label="{{ __('admin/shop.pro_discount_price') }} "
+                                    inputid="discount_price"
+                                    name="discount_price"
+                                    reqname="discount_price"
+                                    value="{{old('discount_price',$Product->discount_price)}}"
+                                    :reqspan="true"
+                                />
+                        </div>
+
+                            <x-basic-name-with-slug :row-data="$Product" :page-data="$pageData" col="col-lg-12" />
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-6">
+
+                    </div>
                 </div>
 
 

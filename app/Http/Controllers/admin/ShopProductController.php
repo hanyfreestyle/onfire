@@ -5,12 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Helpers\AdminHelper;
 use App\Helpers\PuzzleUploadProcess;
 use App\Http\Controllers\AdminMainController;
-use App\Http\Requests\admin\ProductPhotoRequest;
 use App\Http\Requests\admin\ShopProductRequest;
-use App\Models\admin\Category;
-use App\Models\admin\Product;
-use App\Models\admin\ProductPhoto;
-use App\Models\admin\ProductTranslation;
+
+use App\Models\Category;
+use App\Models\Product;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -77,52 +75,13 @@ class ShopProductController extends AdminMainController
 #|||||||||||||||||||||||||||||||||||||| #     index
     public function index()
     {
-
-
-//        $Products = Product::defquery()->where('pro_shop',true)->get();
-//        foreach ($Products as $Product){
-//            $Product->qty =  rand(0,50);
-//            $Product->save();
-//        }
-
-
-//        $Products = Product::defquery()->where('pro_shop',true)->get();
-//        foreach ($Products as $Product){
-//            $Product->ref_code =  rand(10000000,99999999);
-//            $Product->save();
-//        }
-
-
-
-
         $pageData = $this->pageData;
         $pageData['ViewType'] = "List";
         $pageData['SubView'] = false;
-        $Products = self::getSelectQuery(Product::defquery()
-            ->where('pro_shop',true)
-        );
-
+        $Products = self::getSelectQuery(Product::query());
 
         return view('admin.shop.product_index',compact('pageData','Products'));
     }
-
-#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-#|||||||||||||||||||||||||||||||||||||| #     AddProToShop
-    public function AddProToShop()
-    {
-        $pageData = $this->pageData;
-        $pageData['ViewType'] = "List";
-        $pageData['SubView'] = false;
-        $Products = self::getSelectQuery(Product::defquery()
-            ->where('pro_shop',false)
-        );
-        return view('admin.shop.product_index',compact('pageData','Products'));
-    }
-
-
-
-
-
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 #|||||||||||||||||||||||||||||||||||||| #     SubCategory
@@ -133,8 +92,7 @@ class ShopProductController extends AdminMainController
         $pageData['SubView'] = true;
         $Category = Category::findOrFail($id);
 
-
-        $Products = Product::defquery()->whereHas('ProductWithCategory', function ($query) use ($id) {
+        $Products = Product::whereHas('categories', function ($query) use ($id) {
             $query->where('category_id', $id);
         })->paginate(10);
 
@@ -164,8 +122,8 @@ class ShopProductController extends AdminMainController
         $pageData['ViewType'] = "Edit";
 
         $Categories = Category::all();
-        $Product = Product::where('id',$id)->with('ProductWithCategory')->firstOrFail();
-        $selCat = $Product->ProductWithCategory()->pluck('category_id')->toArray();
+        $Product = Product::where('id',$id)->with('categories')->firstOrFail();
+        $selCat = $Product->categories()->pluck('category_id')->toArray();
         return view('admin.shop.product_form',compact('Product','pageData','Categories','selCat'));
     }
 
@@ -177,15 +135,18 @@ class ShopProductController extends AdminMainController
         $categories = $request->input('categories');
 
         $saveData =  Product::findOrNew($id);
-
-
+        $saveData->slug = AdminHelper::Url_Slug($request->input('slug'));
+        $saveData->name = $request->input('name');
+        $saveData->des = $request->input('des');
         $saveData->is_active = intval((bool) $request->input( 'is_active'));
         $saveData->is_archived = intval((bool) $request->input( 'is_archived'));
 
-        $saveData->pro_shop = $request->input('pro_shop');
-        $saveData->pro_web = $request->input('pro_web');
+        $saveData->price = $request->input('price');
+        $saveData->discount_price = $request->input('discount_price');
+
+
         $saveData->save();
-        $saveData->ProductWithCategory()->sync($categories);
+        $saveData->categories()->sync($categories);
 
         $saveImgData = new PuzzleUploadProcess();
         $saveImgData->setCountOfUpload('2');
@@ -195,27 +156,14 @@ class ShopProductController extends AdminMainController
         $saveData = AdminHelper::saveAndDeletePhoto($saveData,$saveImgData);
         $saveData->save();
 
-        foreach ( config('app.shop_lang') as $key=>$lang) {
-            $saveTranslation = ProductTranslation::where('product_id',$saveData->id)->where('locale',$key)->firstOrNew();
-            $saveTranslation->product_id = $saveData->id;
-            $saveTranslation->locale = $key;
-            $saveTranslation->name = $request->input($key.'.name');
-            $saveTranslation->slug = AdminHelper::Url_Slug($request->input($key.'.slug'));
-            $saveTranslation->des = $request->input($key.'.des');
-            $saveTranslation->save();
-        }
-
         self::ClearCash();
 
-
         if($id == '0'){
-
             if($request->input('AddNewSet') !== null){
                 return redirect()->back();
             }else{
                 return redirect(route($this->PrefixRoute.'.index'))->with('Add.Done',"");
             }
-
         }else{
             return redirect(route($this->PrefixRoute.'.index'))->with('Edit.Done',"");
         }
@@ -226,12 +174,7 @@ class ShopProductController extends AdminMainController
 #|||||||||||||||||||||||||||||||||||||| #     destroy
     public function destroy($id)
     {
-        $deleteRow = Product::where('id',$id)->with('more_photos')->firstOrFail();
-        if(count($deleteRow->more_photos) > 0){
-            foreach ($deleteRow->more_photos as $del_photo ){
-                AdminHelper::DeleteAllPhotos($del_photo);
-            }
-        }
+        $deleteRow = Product::where('id',$id)->firstOrFail();
         $deleteRow = AdminHelper::DeleteAllPhotos($deleteRow);
         $deleteRow->delete();
         self::ClearCash();

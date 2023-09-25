@@ -7,14 +7,6 @@
     <x-breadcrumb-def :pageData="$pageData"/>
 
     <x-html-section>
-        <div class="row mb-3">
-            <div class="col-12 text-left">
-                <x-action-button url="{{route('Shop.ShopProduct.AddProToShop')}}"  bg="p"  print-lable="{{ __('admin/shop.pro_addshop') }}"  icon="fas fa-plus-square"  />
-            </div>
-        </div>
-    </x-html-section>
-
-    <x-html-section>
         <x-ui-card  :page-data="$pageData" >
             <x-mass.confirm-massage/>
 
@@ -30,14 +22,11 @@
 
 
                             <th class="TD_50">{{ __('admin/shop.pro_price') }}</th>
-                            <th class="TD_50">{{ __('admin/shop.pro_discount_price') }}</th>
-                            <th class="TD_50">{{ __('admin/shop.pro_qty') }}</th>
-
+                            <th class="TD_100">{{ __('admin/shop.pro_discount_price') }}</th>
+{{--                            <th class="TD_50">{{ __('admin/shop.pro_qty') }}</th>--}}
 
                             <th class="tbutaction TD_50"></th>
                             @can($PrefixRole.'_edit')
-
-                                <th class="tbutaction TD_50"></th>
                                 <th class="tbutaction TD_50"></th>
                             @endcan
                             @can($PrefixRole.'_delete')
@@ -51,10 +40,10 @@
                             <tr>
                                 <td>{{$Product->id}}</td>
                                 <td class="tc">{!!  \App\Helpers\AdminHelper::printTableImage($Product,'photo_thum_1') !!} </td>
-                                <td>{{ $Product->translate('ar')->name}}</td>
+                                <td>{{ $Product->name}}</td>
 
                                 <td>
-                                    @foreach($Product->ProductWithCategory as $Category )
+                                    @foreach($Product->categories as $Category )
                                         <a href="{{route($PrefixRoute.'.ListCategory',$Category->id)}}">
                                             <span class="cat_table_name">{{$Category->name}}</span>
                                         </a>
@@ -65,12 +54,10 @@
 
                                 <td class="tc">{{ $Product->price}}</td>
                                 <td class="tc">{{ $Product->discount_price}}</td>
-                                <td class="tc">{{$Product->qty}}</td>
+{{--                                <td class="tc">{{$Product->qty}}</td>--}}
 
                                 <td class="tc" >{!! is_active($Product->is_active) !!}</td>
                                 @can($PrefixRole.'_edit')
-
-                                    <td class="tc"><x-action-button url="{{route($PrefixRoute.'.More_Photos',$Product->id)}}"  count="{{$Product->more_photos_count}}" type="morePhoto" :tip="true" /></td>
                                     <td class="tc"><x-action-button url="{{route($PrefixRoute.'.edit',$Product->id)}}" type="edit" :tip="true" /></td>
                                 @endcan
 
