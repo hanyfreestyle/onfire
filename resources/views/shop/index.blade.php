@@ -2,41 +2,41 @@
 
 @section('content')
 
-    <div class="section small_pt MainCategory_Home_Slider">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="heading_tab_header">
-                        <div class="heading_s2">
-                            <h2 class="def_h2">{{__('web/def.Main_Categories')}}</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="client_logo carousel_slider owl-carousel owl-theme nav_style3" data-dots="false" data-nav="true" data-margin="30" data-loop="true" data-autoplay="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "767":{"items": "4"}, "991":{"items": "6"}}'>
-                        @foreach($ShopMenuCategory as $MainCategory)
+{{--    <div class="section small_pt MainCategory_Home_Slider">--}}
+{{--        <div class="container">--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-md-12">--}}
+{{--                    <div class="heading_tab_header">--}}
+{{--                        <div class="heading_s2">--}}
+{{--                            <h2 class="def_h2">{{__('web/def.Main_Categories')}}</h2>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--            <div class="row">--}}
+{{--                <div class="col-12">--}}
+{{--                    <div class="client_logo carousel_slider owl-carousel owl-theme nav_style3" data-dots="false" data-nav="true" data-margin="30" data-loop="true" data-autoplay="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "767":{"items": "4"}, "991":{"items": "6"}}'>--}}
+{{--                        @foreach($ShopMenuCategory as $MainCategory)--}}
 
-                            <a href="{{route('Shop_CategoryView',$MainCategory->slug)}}">
+{{--                            <a href="{{route('Shop_CategoryView',$MainCategory->slug)}}">--}}
 
-                                <div class="item">
-                                    <div class="cl_logoX">
-                                        <img class="slider_icon" src="{{ getPhotoPath($MainCategory->icon ,'faq-icon') }}" alt="cl_logo"/>
+{{--                                <div class="item">--}}
+{{--                                    <div class="cl_logoX">--}}
+{{--                                        <img class="slider_icon" src="{{ getPhotoPath($MainCategory->icon ,'faq-icon') }}" alt="cl_logo"/>--}}
 
-                                    </div>
+{{--                                    </div>--}}
 
-                                    <h3 class="def_h4 text-center mt-3">{{$MainCategory->name}}</h3>
-                                </div>
-                            </a>
+{{--                                    <h3 class="def_h4 text-center mt-3">{{$MainCategory->name}}</h3>--}}
+{{--                                </div>--}}
+{{--                            </a>--}}
 
 
-                        @endforeach
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
 
     @foreach($MainCategoryPro as $MainCategory)
@@ -72,20 +72,8 @@
                                     <div class="product_slider carousel_slider owl-carousel owl-theme dot_style1" data-loop="true" data-margin="25" data-responsive='{"0":{"items": "2"}, "481":{"items": "2"}, "768":{"items": "3"}, "991":{"items": "4"}}'>
                                         @foreach($MainCategory->recursive_product_shop as $product)
                                             <div class="item">
-                                                <x-shop.block-product :product="$product" :category="$product->product_with_category->first()"/>
-{{--                                                <div class="product_wrap">--}}
-{{--                                                    <div class="product_img">--}}
-{{--                                                        <a href="#">--}}
-{{--                                                            <img src="{{getPhotoPath($product->photo , 'categorie') }}" alt="product_img3">--}}
-{{--                                                        </a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <div class="product_info">--}}
-{{--                                                        <h6 class="product_title text-right"><a href="{{route('Shop_ProductView',[$product->product_with_category->first()->id,$product->slug])}}">{{$product->name}}</a></h6>--}}
+                                                <x-shop.block-product :product="$product" :category="$product->categories->first()"/>
 
-{{--                                                        <x-shop.print-product-price :product="$product"/>--}}
-
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
                                             </div>
                                         @endforeach
                                     </div>

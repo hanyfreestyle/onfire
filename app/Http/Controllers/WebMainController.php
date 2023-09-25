@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\AdminHelper;
-use App\Models\admin\Category;
+
 use App\Models\admin\config\DefPhoto;
 use App\Models\admin\config\MetaTag;
 
@@ -11,6 +11,7 @@ use App\Models\admin\config\Setting;
 use App\Models\admin\Location;
 use App\Models\admin\Page;
 use App\Models\admin\Product;
+use App\Models\Category;
 use Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
@@ -38,15 +39,6 @@ class WebMainController extends Controller
 
         $DefPhotoList = self::getDefPhotoList($stopCash);
         View::share('DefPhotoList', $DefPhotoList);
-
-
-
-//        $PagesList  = self::getPagesList();
-//        View::share('PagesList', $PagesList);
-
-
-
-
 
 
         $PageView = [
@@ -112,22 +104,23 @@ class WebMainController extends Controller
 //            return  Page::with('translation')->get()->keyBy('cat_id');
 //        });
 
-        $PagesList = Cache::remember('PagesList_Cash_'.app()->getLocale(),config('app.def_24h_cash'), function (){
-            return  Page::where('is_active',true)
-                ->with('translation')
-                ->with('PageBanner')
-                ->withcount('PageBanner')
-                ->orderBy('postion','ASC')
-                ->get()
-                ->keyBy('cat_id')
-                ;
-        });
-
-        if ($PagesList->has($cat_id)) {
-            return $PagesList[$cat_id] ;
-        }else{
-            return $PagesList['HomePage'] ?? '' ;
-        }
+//        $PagesList = Cache::remember('PagesList_Cash_'.app()->getLocale(),config('app.def_24h_cash'), function (){
+//            return  Page::where('is_active',true)
+//                ->with('translation')
+//                ->with('PageBanner')
+//                ->withcount('PageBanner')
+//                ->orderBy('postion','ASC')
+//                ->get()
+//                ->keyBy('cat_id')
+//                ;
+//        });
+//
+//        if ($PagesList->has($cat_id)) {
+//            return $PagesList[$cat_id] ;
+//        }else{
+//            return $PagesList['HomePage'] ?? '' ;
+//        }
+        return [];
    }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -188,32 +181,41 @@ class WebMainController extends Controller
 #|||||||||||||||||||||||||||||||||||||| #     getMenuCategory
     static function getMenuCategory($stopCash=0){
 
-        if($stopCash){
-            $MenuCategory = Category::WebSite_Def_Query()
-                ->RootCategory()
-                ->withCount('website_children')
-                ->with('website_children')
-                ->withCount('category_with_product_website')
-                ->with('category_with_product_website')
-                ->with('translation')
-                ->orderBy('postion_web','ASC')
-                ->get();
+//        if($stopCash){
+//            $MenuCategory = Category::WebSite_Def_Query()
+//                ->RootCategory()
+//                ->withCount('website_children')
+//                ->with('website_children')
+//                ->withCount('category_with_product_website')
+//                ->with('category_with_product_website')
+//                ->with('translation')
+//                ->orderBy('postion_web','ASC')
+//                ->get();
+//
+//        }else{
+//            $MenuCategory = Cache::remember('WebsiteMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
+//                function (){
+//                return    Category::WebSite_Def_Query()
+//                    ->RootCategory()
+//                    ->withCount('website_children')
+//                    ->with('website_children')
+//                    ->withCount('category_with_product_website')
+//                    ->with('category_with_product_website')
+//                    ->with('translation')
+//                    ->orderBy('postion_web','ASC')
+//                    ->get();
+//            });
+//        }
 
-        }else{
-            $MenuCategory = Cache::remember('WebsiteMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
-                function (){
-                return    Category::WebSite_Def_Query()
-                    ->RootCategory()
-                    ->withCount('website_children')
-                    ->with('website_children')
-                    ->withCount('category_with_product_website')
-                    ->with('category_with_product_website')
-                    ->with('translation')
-                    ->orderBy('postion_web','ASC')
-                    ->get();
-            });
-        }
-
+        $MenuCategory = Category::query()
+//            ->RootCategory()
+//            ->withCount('website_children')
+//            ->with('website_children')
+//            ->withCount('category_with_product_website')
+//            ->with('category_with_product_website')
+//            ->with('translation')
+            ->orderBy('postion','ASC')
+            ->get();
 
 
         return $MenuCategory ;
@@ -223,27 +225,34 @@ class WebMainController extends Controller
 #|||||||||||||||||||||||||||||||||||||| #     getMenuCategory
     static function getShopMenuCategory($stopCash=0){
 
-        if($stopCash){
-            $MenuCategory = Category::Web_Shop_Def_Query()->RootCategory()
-                ->withCount('web_shop_children')
-                ->with('web_shop_children')
-                ->with('recursive_product_shop')
-//                ->withCount('category_with_product_shop')
-//                ->with('category_with_product_shop')
-                ->orderBy('postion_shop','ASC')
-                ->get();
-        }else{
-            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
-                function (){ return   Category::Web_Shop_Def_Query()->RootCategory()
-                    ->withCount('web_shop_children')
-                    ->with('web_shop_children')
-                    ->with('recursive_product_shop')
-//                    ->with('category_with_product_shop')
-//                    ->withCount('category_with_product_shop')
-                    ->orderBy('postion_shop','ASC')
-                    ->get();
-                });
-        }
+//        if($stopCash){
+//            $MenuCategory = Category::Web_Shop_Def_Query()->RootCategory()
+//                ->withCount('web_shop_children')
+//                ->with('web_shop_children')
+//                ->with('recursive_product_shop')
+////                ->withCount('category_with_product_shop')
+////                ->with('category_with_product_shop')
+//                ->orderBy('postion_shop','ASC')
+//                ->get();
+//        }else{
+//            $MenuCategory = Cache::remember('ShopMenuCategory_Cash_'.app()->getLocale(),config('app.def_24h_cash'),
+//                function (){ return   Category::Web_Shop_Def_Query()->RootCategory()
+//                    ->withCount('web_shop_children')
+//                    ->with('web_shop_children')
+//                    ->with('recursive_product_shop')
+////                    ->with('category_with_product_shop')
+////                    ->withCount('category_with_product_shop')
+//                    ->orderBy('postion_shop','ASC')
+//                    ->get();
+//                });
+//        }
+
+        $MenuCategory = Category::query()
+            ->withCount('children')
+            ->with('children')
+//            ->with('recursive_product_shop')
+            ->orderBy('postion','ASC')
+            ->get();
 
         return $MenuCategory ;
     }

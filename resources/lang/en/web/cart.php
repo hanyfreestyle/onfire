@@ -4,6 +4,7 @@ return
 [
 	'Add To Cart' => 'Add To Cart',
 	'Confirm_Order' => 'Confirm Order',
+	'Confirm_Order_whatsapp' => 'ارسل واتس اب',
 	'EGP' => 'EGP',
 	'Subtotal' => 'Subtotal :',
 	'View_Cart' => 'View Cart',
@@ -25,5 +26,4 @@ return
 	't_Quantity' => 'Quantity',
 	't_Remove' => 'Remove',
 	't_Total' => 'Total',
-	'Confirm_Order_whatsapp' => 'ارسل واتس اب',
 ];

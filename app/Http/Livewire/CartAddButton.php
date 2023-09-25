@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\admin\Product;
+use App\Models\Product;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -28,7 +28,7 @@ class CartAddButton extends Component
 
     public function addToCart($product_id)
     {
-        $Product  = Product::Web_Shop_Def_Query()
+        $Product  = Product::query()
             ->where('id', $product_id)
             ->firstOrFail();
 
@@ -39,8 +39,8 @@ class CartAddButton extends Component
             $Product->CartPriceToAdd(),
             [
                 'photo' => $Product->photo_thum_1,
-                'ref_code' => $Product->ref_code,
-                'ref_code_name' =>Str::limit($Product->name,10).$Product->ref_code,
+                //'ref_code' => $Product->ref_code,
+                'ref_code_name' =>$Product->name,
             ]
         );
         $this->emit('cart_updated');

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -91,5 +92,28 @@ class Category extends Model
 //        );
 //    }
 
+
+#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+#|||||||||||||||||||||||||||||||||||||| #
+    public function recursive_product_shop()
+    {
+        return $this->belongsToManyOfDescendantsAndSelf(Product::class, 'category_product')
+
+//            ->with('product_with_category')
+//            ->where('pro_shop',true)
+            ->where('is_active',true)
+            ->where('is_archived',false);
+    }
+
+
+    #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+    #|||||||||||||||||||||||||||||||||||||| #  category_with_product_shop
+    public function category_with_product_shop()
+    {
+        return $this->belongsToMany(Product::class,'category_product','category_id','product_id')
+            ->where('is_active',true)
+            ->where('is_archived',false)
+            ;
+    }
 
 }

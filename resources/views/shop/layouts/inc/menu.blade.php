@@ -15,10 +15,13 @@
                         <ul class="navbar-nav">
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'HomePage' ) setActive @endif" href="{{ route('Shop_HomePage') }}">{{__('web/menu.home_page')}} </a></li>
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'MainCategory' ) setActive @endif" href="{{ route('Shop_MainCategory') }}">{{__('web/def.Main_Categories')}} </a></li>
+
                             <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_Recently' ) setActive @endif" href="{{ route('Shop_Recently') }}">{{ __('web/menu.recently_arrived')}} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_WeekOffers' ) setActive @endif" href="{{ route('Shop_WeekOffers') }}">{{ __('web/menu.week_offer') }} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_BestDeals' ) setActive @endif" href="{{ route('Shop_BestDeals') }}">{{ __('web/menu.client_offer') }} </a></li>
-                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}">{{ __('web/menu.contatc_us')}}</a></li>
+{{--                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_WeekOffers' ) setActive @endif" href="{{ route('Shop_WeekOffers') }}">{{ __('web/menu.week_offer') }} </a></li>--}}
+{{--                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'Shop_BestDeals' ) setActive @endif" href="{{ route('Shop_BestDeals') }}">{{ __('web/menu.client_offer') }} </a></li>--}}
+{{--                            <li><a class="nav-link nav_item @if($SinglePageView['SelMenu'] == 'ContactUs' ) setActive @endif" href="{{ route('Page_ContactUs') }}">{{ __('web/menu.contatc_us')}}</a></li>--}}
+
+
                         </ul>
                     </div>
 

@@ -36,7 +36,7 @@
                         @foreach($Recently as $Product )
                             <div class="col-lg-4 col-md-4 col-6">
 {{--                                <x-shop.block-list-pro-from-cat  :product="$Product" :category="$Product->product_with_category->first()" />--}}
-                                <x-shop.block-product :product="$Product" :category="$Product->product_with_category->first()"/>
+                                <x-shop.block-product :product="$Product" :category="$Product->categories->first()"/>
                             </div>
                         @endforeach
                     </div>

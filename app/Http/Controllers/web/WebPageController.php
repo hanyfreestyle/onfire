@@ -42,20 +42,21 @@ class WebPageController extends WebMainController
 #|||||||||||||||||||||||||||||||||||||| #    HomePage
     public function HomePage()
     {
-        $PageMeta = parent::getMeatByCatId('HomePage');
-        parent::printSeoMeta($PageMeta);
-        $SinglePageView = $this->SinglePageView ;
-        $SinglePageView['SelMenu'] = 'HomePage' ;
-        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
-        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
-        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
+//        $PageMeta = parent::getMeatByCatId('HomePage');
+//        parent::printSeoMeta($PageMeta);
+//        $SinglePageView = $this->SinglePageView ;
+//        $SinglePageView['SelMenu'] = 'HomePage' ;
+//        $SinglePageView['banner_id'] = $PageMeta->banner_id ;
+//        $SinglePageView['banner_count'] = $PageMeta->page_banner_count ;
+//        $SinglePageView['banner_list'] = $PageMeta->PageBanner ;
+//
+//
+//
+//        $BlogPosts =  BlogPost::defWeb()->limit(3)->get();
 
 
-
-        $BlogPosts =  BlogPost::defWeb()->limit(3)->get();
-
-
-        return view('web.index',compact('SinglePageView','BlogPosts'));
+       // return view('web.index',compact('SinglePageView','BlogPosts'));
+        return view('web.index');
     }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

@@ -11,7 +11,7 @@
 
             <div class="row mb-3 mb-lg-4 mt-3 pb-1">
                 <div class="col-lg-12">
-                    <h1 class="def_h1 text-center" >{{$PageMeta->body_h1}}</h1>
+                    <h1 class="def_h1 text-center" >{{__('web/def.Main_Categories')}}</h1>
                 </div>
             </div>
 
