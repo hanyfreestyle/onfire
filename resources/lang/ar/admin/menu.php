@@ -1,0 +1,31 @@
+<?php
+
+return
+[
+	'OurClient' => 'عملائنا',
+	'blog' => 'الاخبار',
+	'dashboard' => 'الصفحة الرئيسية',
+	'faq' => 'الاسئلة المتكررة',
+	'lang_file_admin' => 'ملفات اللغة لوحة التحكم',
+	'lang_file_web' => 'ملفات اللغة للموقع',
+	'roles' => 'الاعضاء والصلاحيات',
+	'roles_permissions' => 'الاصلاحيات',
+	'roles_role' => 'مجموعات الصلاحيات',
+	'roles_users' => 'المستخدمين',
+	'setting' => 'الاعدادات',
+	'setting_def_photo' => 'الصور الافتراضية',
+	'setting_icon' => 'الايكون',
+	'setting_meta_tags' => 'ميتا تاج',
+	'setting_model' => 'اعدادات الاقسام',
+	'setting_photo' => 'اعدادات الصور',
+	'setting_web' => 'الاعدادات العامة',
+	'uploadFilter' => 'فلاتر الصور',
+	'webPrivacy' => 'سياسية الاستخدام',
+	'web_attribute_Table' => 'جدول البيانات',
+	'web_banner' => 'البانر',
+	'web_category' => 'المجموعات',
+	'web_pages' => 'ادارة الصفحات',
+	'web_product' => 'المنتجات',
+	'web_product_menu' => 'منتجات الموقع',
+	'shop_product_menu' => 'المتجر',
+];

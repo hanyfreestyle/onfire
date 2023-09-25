@@ -1,0 +1,91 @@
+body{font-family: 'Poppins', sans-serif!important; font-size:14px;}
+.lang_icon{
+    float: right!important;
+}
+
+.lang_text{
+    font-size: 14px;
+    font-family: 'Tajawal', sans-serif!important;
+}
+
+
+
+.main_menu_uppercase .navbar-nav > li > .nav-link {
+    text-transform:none;
+    letter-spacing: 1px;
+    font-size: 15px;
+
+}
+
+
+.webSiteFooter .footer_about_text{font-size:14px;line-height:26px!important;margin-top:0;margin-bottom:0}
+.webSiteFooter .footer_about_more a{color:#FF324D;float:right;margin-left:0;margin-right:10px}
+.webSiteFooter .widget_title{text-transform:capitalize;margin-top:10px;margin-bottom:15px;font-size:15px;font-weight:600!important;letter-spacing:1px}
+.webSiteFooter .footer_address{font-size:14px!important;line-height:25px!important}
+.webSiteFooter .footer_phone{font-family:'Poppins',sans-serif!important;font-size:16px!important;font-weight:500;line-height:30px!important;letter-spacing:1px}
+.webSiteFooter .accordion.accordion_style1 .card-header a{padding-left:0;padding-right:40px}
+.webSiteFooter .accordion_style1 .card-header a::after{top:auto;left:auto;right:10px}
+.webSiteFooter .accordion .card-header a{padding-bottom:10px}
+.webSiteFooter .card-header h6{font-size:15px;letter-spacing:1px}
+
+
+
+.faqcat_list h2{
+    font-size: 1.1rem;
+
+}
+
+.faqcat_list p{
+    font-size: .85rem;
+    line-height: 22px;
+    margin-bottom: 5px;
+}
+
+
+.faqcat_list .readmore a{color:#FF324D;float:right;margin-left:0px!important;font-size: .8rem!important;}
+
+
+
+
+
+.MainCategoryList .list .product .product_title {
+    font-size: 17px;
+    text-align: left;
+    letter-spacing: 1px;
+}
+.MainCategoryList .list_product_action_box   {
+    text-align: right!important;
+}
+
+.MainCategoryList .list_sub_children h3{
+    font-size: 14px;
+    font-weight: 500;
+
+}
+
+
+.MainCategoryList .product_name_li{
+    font-size: 13px;
+    list-style: none;
+    margin-bottom: 4px;
+    padding-bottom: 3px;
+}
+
+
+
+
+
+.ShopNowMobile{
+
+}
+.ShopNowMobile i{
+    font-size:16px;
+}
+.ShopNowMobile a{
+    font-size:14px!important;
+    letter-spacing: 0!important;
+
+
+
+
+}

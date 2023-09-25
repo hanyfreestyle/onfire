@@ -1,0 +1,14 @@
+body{font-family: 'Tajawal', sans-serif!important;}
+.forcDir{
+    direction: ltr!important;
+
+}
+.lang_text{
+    font-family: 'Poppins', sans-serif!important; font-size:14px;
+}
+.contact_phone i {
+    margin-right: 0;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
