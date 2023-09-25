@@ -121,7 +121,7 @@ class ShopPageController extends WebMainController
 #|||||||||||||||||||||||||||||||||||||| #     ShopProductView
     public function ShopProductView ($catid,$slug){
 
-
+/*
 
         $slug = \AdminHelper::Url_Slug($slug);
         $catid = intval($catid);
@@ -168,7 +168,8 @@ class ShopPageController extends WebMainController
 
         return view('shop.product.product_view',
             compact('SinglePageView','PageMeta','Product','trees','ReletedProducts','Category'));
-
+*/
+        return redirect()->route('Shop_HomePage');
     }
 
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

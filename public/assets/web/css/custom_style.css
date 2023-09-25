@@ -474,6 +474,14 @@
     /*color:var(--red)!important*/
 }
 
+.product_row .pro_info p{
+    font-size: 13px;
+    text-align: right;
+    display: none;
+
+}
+
+
 .product_row .pro_info .title{
     font-size: 16px;
     text-align: center;

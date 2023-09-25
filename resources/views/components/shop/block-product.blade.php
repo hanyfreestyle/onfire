@@ -6,6 +6,7 @@
     </div>
     <div class="pro_info">
         <h2 class="title crop_text_1 "><a href="{{route('Shop_ProductView',[$category->id,$product->slug])}}">{{$product->name}}</a></h2>
+        <p>{{$product->des}}</p>
         <x-shop.print-product-price :product="$product"/>
         <livewire:cart-add-button :product="$product">
     </div>
