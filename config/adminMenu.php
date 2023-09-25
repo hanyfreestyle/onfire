@@ -57,95 +57,10 @@
 
         ],
 
-        [
-            'view'=>true,
-            'sel_routs'=>'OurClient',
-            'type'=>'one',
-            'text'=> 'admin/menu.OurClient',
-            'url'=> 'OurClient.index',
-            'icon'=>'fas fa-users',
-            'roleView'=>'OurClient_view',
-        ],
 
-        [
-            'view'=>true,
-            'sel_routs'=>'webPro',
-            'type'=>'many',
-            'text'=> 'admin/menu.web_product_menu',
-            'icon'=>'fas fa-warehouse',
-            'roleView'=>'product_view',
-            'submenu'=>[
-                [
-                    'sel_routs'=> 'category',
-                    'url'=> 'webPro.category.index',
-                    'roleView'=>'category_view',
-                    'text'=> 'admin/menu.web_category',
-                    'icon'=>'fas fa-sitemap'
-                ],
-                [
-                    'sel_routs'=> 'Product',
-                    'url'=> 'webPro.Product.index',
-                    'roleView'=>'category_view',
-                    'text'=> 'admin/menu.web_product',
-                    'icon'=>'fas fa-shopping-cart'
-                ],
-                [
-                    'sel_routs'=> 'AttributeTables',
-                    'url'=> 'webPro.AttributeTables.index',
-                    'roleView'=>'category_view',
-                    'text'=> 'admin/menu.web_attribute_Table',
-                    'icon'=>'fas fa-table'
-                ],
-                [
-                    'sel_routs'=> 'categoryConfig',
-                    'url'=> 'webPro.categoryConfig.Config',
-                    'roleView'=>'category_edit',
-                    'text'=> 'admin/menu.setting',
-                    'icon'=>'fas fa-cogs'
-                ],
 
-            ],
-        ],
 
-        [
-            'view'=>true,
-            'sel_routs'=>'BlogPost',
-            'type'=>'one',
-            'text'=> 'admin/menu.blog',
-            'url'=> 'BlogPost.index',
-            'icon'=>'fas fa-calendar-alt',
-            'roleView'=>'BlogPost_view',
-        ],
 
-        [
-            'view'=>true,
-            'sel_routs'=>'Banners',
-            'type'=>'one',
-            'text'=> 'admin/menu.web_banner',
-            'url'=> 'Banners.Banner.index',
-            'icon'=>'fas fa-images',
-            'roleView'=>'Banner_view',
-        ],
-
-        [
-            'view'=>true,
-            'sel_routs'=>'FAQ',
-            'type'=>'one',
-            'text'=> 'admin/menu.faq',
-            'url'=> 'FAQ.FaqList.index',
-            'icon'=>'fas fa-question',
-            'roleView'=>'Faq_view',
-        ],
-
-        [
-            'view'=>true,
-            'sel_routs'=>'Pages',
-            'type'=>'one',
-            'text'=> 'admin/menu.web_pages',
-            'url'=> 'Pages.pageList.index',
-            'icon'=>'fab fa-html5',
-            'roleView'=>'Pages_view',
-        ],
 
         [
             'view'=>true,
